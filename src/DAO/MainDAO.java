@@ -7,64 +7,24 @@ import java.sql.SQLException;
 
 public class MainDAO {
 
-
-    public class MySQLConnection {
-
-        private static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/team_game_logs";
+    public class DBConnection {
+        // Configuración de la base de datos
+        private static final String DB_URL = "jdbc:mysql://192.168.1.102:3306/nba";
         private static final String USER = "root";
-        private static final String PASS = "Sox2020@";
+        private static final String PASS = "casaos";
 
-        public static void main(String[] args) {
+        public static Connection getConnection() throws SQLException {
             Connection conn = null;
-            Statement stmt = null;
-
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-
+                // Registrar el controlador JDBC
+                Class.forName("com.mysql.jdbc.Driver");
+                // Abrir una conexión
                 conn = DriverManager.getConnection(DB_URL, USER, PASS);
-
-                // Paso 3: Ejecutar una consulta SQL
-                System.out.println("Creando declaración...");
-                stmt = conn.createStatement();
-                String sql = "SELECT id, nombre, apellido FROM Empleados";
-                ResultSet rs = stmt.executeQuery(sql);
-
-                // Paso 4: Procesar los resultados del ResultSet
-                while (rs.next()) {
-                    // Recuperar datos por nombre de columna
-                    int id = rs.getInt("id");
-                    String nombre = rs.getString("nombre");
-                    String apellido = rs.getString("apellido");
-
-                    // Mostrar los valores
-                    System.out.print("ID: " + id);
-                    System.out.print(", Nombre: " + nombre);
-                    System.out.println(", Apellido: " + apellido);
-                }
-
-                // Paso 5: Cerrar el ResultSet
-                rs.close();
-            } catch (SQLException se) {
-                // Manejo de errores para JDBC
-                se.printStackTrace();
-            } catch (Exception e) {
-                // Manejo de errores para Class.forName
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
-            } finally {
-                // Bloque finally usado para cerrar recursos
-                try {
-                    if (stmt != null) stmt.close();
-                } catch (SQLException se2) {
-                } // Nada que podamos hacer
-                try {
-                    if (conn != null) conn.close();
-                } catch (SQLException se) {
-                    se.printStackTrace();
-                }
+                throw new SQLException("Error al cargar el driver JDBC", e);
             }
-
-            System.out.println("Adiós!");
+            return conn;
         }
     }
 }
-

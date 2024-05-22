@@ -1,4 +1,42 @@
 package Controlador;
 
+import Vista.MainView;
+
+import java.sql.SQLException;
+
 public class MainController {
+    private MainView mainView;
+    private PlayerController playerController;
+    private MatchController matchController;
+
+    public MainController() throws SQLException {
+        this.mainView = new MainView();
+        this.playerController = new PlayerController(mainView);
+        this.matchController = new MatchController();
+    }
+
+    public void start() {
+        int option;
+        do {
+            mainView.displayMenu();
+            option = mainView.getOption();
+            switch (option) {
+                case 0:
+                    System.out.println("Saliendo...");
+                    break;
+                case 1:
+                    playerController.listPlayersByTeam();
+                    break;
+                case 2:
+                    playerController.showPlayerStats();
+                    break;
+                case 3:
+                    matchController.listMatchesByTeam(); // Opció 3
+                    break;
+                default:
+                    System.out.println("Opción no válida. Inténtalo de nuevo.");
+                    break;
+            }
+        } while (option != 0);
+    }
 }
