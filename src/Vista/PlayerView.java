@@ -1,6 +1,5 @@
 package Vista;
 
-import Model.Match;
 import Model.Player;
 import Model.PlayerStats;
 
@@ -58,5 +57,33 @@ public class PlayerView {
 
         );
     }
+
+    public String getNewPlayer() {
+        System.out.print("Introdueix el nom complet del nou jugador: ");
+        return scanner.nextLine();
+    }
+
+
+    /* Exercici 7 */
+
+
+    public String getStatName() {
+        System.out.print("Introdueix el nom de la variable a modificar: ");
+        System.out.print("Variables disponibles: GP, MIN, FGM, FGA, FG_PCT, FG3M, FG3A, FG3_PCT, FTM, FTA, FT_PCT, OREB, DREB, REB, AST, STL, BLK, TOV, PTS, EFF");
+        return scanner.nextLine();
+    }
+
+    public int getNewStatValue() {
+        System.out.print("Introdueix un nou número a la estadistica: ");
+        return scanner.nextInt();
+    }
+
+    public boolean wantToUpdateMoreStats() {
+        System.out.print("¿Vols modificar una altre estadistica? (si/no): ");
+        String response = scanner.next().toLowerCase();
+        return response.equals("si");
+    }
+
+
 }
 

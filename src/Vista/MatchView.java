@@ -21,4 +21,7 @@ public class MatchView {
             System.out.println(match.getTeam() + " – " + match.getOpponent() + ": " + match.getTeamPoints() + " – " + match.getOpponentPoints());
         }
     }
+
+
+
 }

@@ -1,6 +1,7 @@
 package Controlador;
 
 import Vista.MainView;
+import Controlador.TeamController;
 
 import java.sql.SQLException;
 
@@ -14,6 +15,7 @@ public class MainController {
         this.mainView = new MainView();
         this.playerController = new PlayerController(mainView);
         this.matchController = new MatchController();
+        this.teamController = new TeamController();
     }
 
     public static void start() {
@@ -33,6 +35,23 @@ public class MainController {
                     break;
                 case 3:
                     matchController.listMatchesByTeam(); // Opció 3
+                    break;
+                case 4:
+                    playerController.addNewPlayer();
+                    break;
+                case 5:
+                    playerController.transferPlayer();
+                    break;
+                case 6:
+                    matchController.updateMatchesFromFile("games.txt");
+                    break;
+                case 7:
+                    playerController.updatePlayerStats();
+                    break;
+                case 8:
+                    playerController.retirePlayer();
+                case 9:
+                    teamController.changeFranchiseName();
                     break;
                 default:
                     System.out.println("Opción no válida. Inténtalo de nuevo.");
