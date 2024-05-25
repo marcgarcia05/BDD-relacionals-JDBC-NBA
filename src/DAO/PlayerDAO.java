@@ -41,7 +41,7 @@ public class PlayerDAO {
         return players;
     }
 
-    public PlayerStats showPlayerStats(String playerName) {
+    public PlayerStats getPlayerStats(String playerName) {
         String query = "SELECT PLAYER_ID, PLAYER, GP, MIN, FGM, FGA, FG_PCT, FG3M, FG3A, FG3_PCT, FTM, FTA, FT_PCT, OREB, DREB, REB, AST, STL, BLK, TOV, PTS, EFF FROM player_stats WHERE PLAYER = ?";
         PlayerStats p = null;
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -159,6 +159,59 @@ public class PlayerDAO {
             statement.setInt(1, team.getId());
             statement.setString(2, team.getAbbreviation());
             statement.setString(3, player.getName());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addPlayerToHistorics(Player player, PlayerStats playerstats) {
+        String query = "INSERT INTO historics (PLAYER_ID, PLAYER, TEAM, GP, MIN, FGM, FGA, FG_PCT, FG3M, FG3A, FG3_PCT, FTM, FTA, FT_PCT, OREB, DREB, REB, AST, STL, BLK, TOV, PTS, EFF) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);\n";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, player.getId());
+            statement.setString(2, player.getName());
+            statement.setString(3, player.getTeamName());
+            statement.setInt(4, playerstats.getGamesPlayed());
+            statement.setInt(5, playerstats.getMin());
+            statement.setInt(6, playerstats.getFgm());
+            statement.setInt(7, playerstats.getFga());
+            statement.setFloat(8, playerstats.getFgpct());
+            statement.setInt(9, playerstats.getFg3m());
+            statement.setInt(10, playerstats.getFg3a());
+            statement.setFloat(11, playerstats.getFg3pct());
+            statement.setInt(12, playerstats.getFtm());
+            statement.setInt(13, playerstats.getFta());
+            statement.setFloat(14, playerstats.getFtpct());
+            statement.setInt(15, playerstats.getOreb());
+            statement.setInt(16, playerstats.getDreb());
+            statement.setInt(17, playerstats.getReb());
+            statement.setInt(18, playerstats.getAst());
+            statement.setInt(19, playerstats.getStl());
+            statement.setInt(20, playerstats.getBlk());
+            statement.setInt(21, playerstats.getTov());
+            statement.setInt(22, playerstats.getPts());
+            statement.setInt(23, playerstats.getEff());
+            int rowsAffected = statement.executeUpdate();
+            System.out.println("Files insertades correctament: " + rowsAffected);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deletePlayer(Player player) {
+        String query = "DELETE FROM players WHERE DISPLAY_FIRST_LAST = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, player.getName());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deletePlayerStats(PlayerStats player) {
+        String query = "DELETE FROM player_stats WHERE PLAYER = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, player.getName());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

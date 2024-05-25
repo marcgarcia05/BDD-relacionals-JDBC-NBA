@@ -5,9 +5,10 @@ import Vista.MainView;
 import java.sql.SQLException;
 
 public class MainController {
-    private MainView mainView;
-    private PlayerController playerController;
-    private MatchController matchController;
+    private static MainView mainView;
+    private static PlayerController playerController;
+    private static MatchController matchController;
+    private static TeamController teamController;
 
     public MainController() throws SQLException {
         this.mainView = new MainView();
@@ -15,7 +16,7 @@ public class MainController {
         this.matchController = new MatchController();
     }
 
-    public void start() {
+    public static void start() {
         int option;
         do {
             mainView.displayMenu();

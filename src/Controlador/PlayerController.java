@@ -40,7 +40,7 @@ public class PlayerController {
 
     public void showPlayerStats() {
         String playerName = playerView.getPlayerName();
-        PlayerStats player = playerDAO.showPlayerStats(playerName);
+        PlayerStats player = playerDAO.getPlayerStats(playerName);
         playerView.showPlayerStats(player);
     }
 
@@ -68,6 +68,7 @@ public class PlayerController {
         Player player = new Player(id,playerName,currentYear,currentYear,playerTeam.getCity(),playerTeam.getName(),playerTeam.getAbbreviation());
         PlayerDAO.addNewPlayer(player, playerTeam);
         PlayerDAO.addNewPlayerStats(player, playerTeam);
+        MainController.start();
     }
 
 
@@ -102,6 +103,23 @@ public class PlayerController {
         playerDAO.changePlayerTeam(player, team);
         playerDAO.changePlayerStatsTeam(player, team);
         System.out.println("Equip actualitzat correctament!");
+        MainController.start();
+    }
+
+    public void retirePlayer() {
+        String playerName = playerView.getPlayerName();
+        boolean exists = playerDAO.checkPlayerExists(playerName);
+        if (!exists){
+            System.out.println("Aquest jugador no existeix!");
+            return;
+        }
+        Player player = playerDAO.getPlayer(playerName);
+        PlayerStats playerstats = playerDAO.getPlayerStats(playerName);
+        PlayerDAO.addPlayerToHistorics(player, playerstats);
+        PlayerDAO.deletePlayer(player);
+        PlayerDAO.deletePlayerStats(playerstats);
+        System.out.println("Jugador retirat correctament!");
+        MainController.start();
     }
 }
 
