@@ -67,7 +67,7 @@ public class TeamDAO {
         }
     }
 
-    public boolean checkTeamExists(String teamName) {
+    public static boolean checkTeamExists(String teamName) {
         String query = "SELECT COUNT(*) AS \"EXISTS\" FROM team_info WHERE TEAM_NAME = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, teamName);

@@ -34,14 +34,26 @@ public class PlayerController {
 
     public void listPlayersByTeam() {
         String teamName = playerView.getTeamName();
+        boolean exists = TeamDAO.checkTeamExists(teamName);
+        if (!exists){
+            System.out.println("Aquest equip no existeix!");
+            MainController.start();
+        }
         List<Player> players = playerDAO.listPlayersByTeam(teamName);
         playerView.showPlayersFromTeam(players);
+        MainController.start();
     }
 
     public void showPlayerStats() {
         String playerName = playerView.getPlayerName();
+        boolean exists = playerDAO.checkPlayerExists(playerName);
+        if (!exists){
+            System.out.println("Aquest jugador no existeix!");
+            MainController.start();
+        }
         PlayerStats player = playerDAO.getPlayerStats(playerName);
         playerView.showPlayerStats(player);
+        MainController.start();
     }
 
     public void addNewPlayer(){
@@ -111,7 +123,7 @@ public class PlayerController {
         boolean exists = playerDAO.checkPlayerExists(playerName);
         if (!exists){
             System.out.println("Aquest jugador no existeix!");
-            return;
+            MainController.start();
         }
         Player player = playerDAO.getPlayer(playerName);
         PlayerStats playerstats = playerDAO.getPlayerStats(playerName);

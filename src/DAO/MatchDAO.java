@@ -31,4 +31,17 @@ public class MatchDAO {
         }
         return matches;
     }
+
+    public void updateMatchData(String gameId, String teamName, int points) {
+        String query = "INSERT INTO team_game_logs (GAME_ID, TEAM_NAME, PTS) VALUES (?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, gameId);
+            statement.setString(2, teamName);
+            statement.setInt(3, points);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
