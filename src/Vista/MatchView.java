@@ -12,7 +12,7 @@ public class MatchView {
     }
 
     public String getTeamName() {
-        System.out.print("Introdueix el nom del equip: ");
+        System.out.print("Introdueix el nom del equip complet (ex. Boston Celtics): ");
         return scanner.nextLine();
     }
 
@@ -23,11 +23,14 @@ public class MatchView {
 
     public void showMatches(List<Match> matches) {
         for (Match match : matches) {
-            System.out.println(match.getTeam() + " – " + match.getOpponent() + ": " + match.getTeamPoints() + " – " + match.getOpponentPoints());
+            String team = match.getTeam();
+            String opponent = match.getOpponent();
+            int teamPoints = match.getTeamPoints();
+            int opponentPoints = match.getOpponentPoints();
+
+            String formattedMatch = String.format("%-25s  %-25s| %3d – %3d", team, opponent, teamPoints, opponentPoints);
+            System.out.println(formattedMatch);
         }
     }
-
-
-
 
 }

@@ -24,38 +24,37 @@ public class PlayerView {
     }
 
     public void showPlayersFromTeam(List<Player> players) {
-        System.out.println("Id        |      Nom            |     Equip");
+        System.out.println(String.format("%-10s | %-20s | %-10s", "ID", "Nom", "Equip"));
+        System.out.println("============================================");
         for (Player player : players) {
-            System.out.println(player.getId() + "   |   " + player.getName() + "    |   " + player.getTeamName());
+            System.out.println(String.format("%-10d | %-20s | %-10s", player.getId(), player.getName(), player.getTeamName()));
         }
     }
 
     public void showPlayerStats(PlayerStats player) {
         System.out.println("ESTADISTIQUES");
-        System.out.println("Player ID: " + player.getId() +
-                        "\nNom: " + player.getName() +
-                        "\nGP: " + player.getGamesPlayed() +
-                        "\nMIN: " + player.getMin() +
-                        "\nFGM: " + player.getFgm() +
-                        "\nFGA: " + player.getFga() +
-                        "\nFG_PCT: " + player.getFgpct() +
-                        "\nFG3M: " + player.getFg3m() +
-                        "\nFG3A: " + player.getFg3a() +
-                        "\nFG3_PCT: " + player.getFg3pct() +
-                        "\nFTM: " + player.getFtm() +
-                        "\nFTA: " + player.getFta() +
-                        "\nFT_PCT: " + player.getFtpct() +
-                        "\nOREB: " + player.getOreb() +
-                        "\nDREB: " + player.getDreb() +
-                        "\nREB: " + player.getReb() +
-                        "\nAST: " + player.getAst() +
-                        "\nSTL: " + player.getStl() +
-                        "\nBLK: " + player.getBlk() +
-                        "\nTOV: " + player.getTov() +
-                        "\nPTS: " + player.getPts() +
-                        "\nEFF: " + player.getEff()
-
-        );
+        System.out.println(String.format("%-12s| %-10d", "Player ID", player.getId()));
+        System.out.println(String.format("%-12s| %-10s", "Nom", player.getName()));
+        System.out.println(String.format("%-12s| %-10d", "GP", player.getGamesPlayed()));
+        System.out.println(String.format("%-12s| %-10d", "MIN", player.getMin()));
+        System.out.println(String.format("%-12s| %-10d", "FGM", player.getFgm()));
+        System.out.println(String.format("%-12s| %-10d", "FGA", player.getFga()));
+        System.out.println(String.format("%-12s| %-10f", "FG_PCT", player.getFgpct()));
+        System.out.println(String.format("%-12s| %-10d", "FG3M", player.getFg3m()));
+        System.out.println(String.format("%-12s| %-10d", "FG3A", player.getFg3a()));
+        System.out.println(String.format("%-12s| %-10f", "FG3_PCT", player.getFg3pct()));
+        System.out.println(String.format("%-12s| %-10d", "FTM", player.getFtm()));
+        System.out.println(String.format("%-12s| %-10d", "FTA", player.getFta()));
+        System.out.println(String.format("%-12s| %-10f", "FT_PCT", player.getFtpct()));
+        System.out.println(String.format("%-12s| %-10d", "OREB", player.getOreb()));
+        System.out.println(String.format("%-12s| %-10d", "DREB", player.getDreb()));
+        System.out.println(String.format("%-12s| %-10d", "REB", player.getReb()));
+        System.out.println(String.format("%-12s| %-10d", "AST", player.getAst()));
+        System.out.println(String.format("%-12s| %-10d", "STL", player.getStl()));
+        System.out.println(String.format("%-12s| %-10d", "BLK", player.getBlk()));
+        System.out.println(String.format("%-12s| %-10d", "TOV", player.getTov()));
+        System.out.println(String.format("%-12s| %-10d", "PTS", player.getPts()));
+        System.out.println(String.format("%-12s| %-10d", "EFF", player.getEff()));
     }
 
     public String getNewPlayer() {

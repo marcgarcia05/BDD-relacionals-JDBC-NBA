@@ -49,13 +49,20 @@ public class PlayerController {
     }
 
     public void showPlayerStats() {
-        String playerName = playerView.getPlayerName();
-        boolean exists = playerDAO.checkPlayerExists(playerName);
-        if (!exists){
-            System.out.println("Aquest jugador no existeix!");
-            MainController.start();
+        boolean validPlayer = false;
+        PlayerStats player = null;
+
+        while (!validPlayer) {
+            String playerName = playerView.getPlayerName();
+            validPlayer = playerDAO.checkPlayerExists(playerName);
+
+            if (validPlayer) {
+                player = playerDAO.getPlayerStats(playerName);
+            } else {
+                System.out.println("Aquest jugador no existeix!");
+            }
         }
-        PlayerStats player = playerDAO.getPlayerStats(playerName);
+
         playerView.showPlayerStats(player);
         MainController.start();
     }

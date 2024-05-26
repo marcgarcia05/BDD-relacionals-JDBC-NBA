@@ -5,6 +5,7 @@ import DAO.TeamDAO;
 import Model.Match;
 import Vista.MatchView;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,12 +21,39 @@ public class MatchController {
         this.matchDAO = new MatchDAO();
     }
 
-    public void listMatchesByTeam() {
+    public void listMatchesByTeam(){
         String teamName = matchView.getTeamName();
         String seasonYear = matchView.getSeasonYear();
-        List<Match> matches = matchDAO.listMatchesByTeamAndSeason(teamName, seasonYear);
-        matchView.showMatches(matches);
+
+        // Verificar si l'equip existeix
+        if (!matchDAO.isValidTeam(teamName)) {
+            System.out.println("El equip " + teamName + " no existeix.");
+            return;
+        }
+
+        // Verificar si l'any es vàlid
+        if (!isValidSeasonYear(seasonYear)) {
+            System.out.println("L'any de la temporada no és vàlid.");
+            return;
+        }
+
+            List<Match> matches = matchDAO.listMatchesByTeamAndSeason(teamName, seasonYear);
+            matchView.showMatches(matches);
     }
+
+    private boolean isValidSeasonYear(String seasonYear) {
+        // Lista de años de temporada válidos
+        String[] anysValids = {"2018-19", "2019-20", "2020-21", "2021-22", "2022-23", "2023-24"};
+
+        // Verificar si l'any està en la llista
+        for (String year : anysValids) {
+            if (year.equals(seasonYear)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public void updateMatchesFromFile(String fileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
