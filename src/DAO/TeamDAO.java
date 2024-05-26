@@ -21,7 +21,7 @@ public class TeamDAO {
     }
 
     public Team listPlayersByTeam(String teamName) {
-        String query = "SELECT TEAM_ID, TEAM_CITY, TEAM_NAME, TEAM_ABBREVIATION, TEAM_CONFERENCE, W, L, MIN_YEAR, TEAMNAME FROM team_info;";
+        String query = "SELECT TEAM_ID, TEAM_CITY, TEAM_NAME, TEAM_ABBREVIATION, TEAM_CONFERENCE, W, L, MIN_YEAR, TEAMNAME FROM team_info";
         StringBuilder playerData = new StringBuilder();
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, teamName);
@@ -38,7 +38,7 @@ public class TeamDAO {
     }
 
     public static Team getTeamInfo(String teamName) {
-        String query = "SELECT TEAM_ID, TEAM_CITY, TEAM_NAME, TEAM_ABBREVIATION, TEAM_CONFERENCE, W, L, MIN_YEAR, TEAMNAME FROM team_info WHERE TEAM_NAME = ?;";
+        String query = "SELECT TEAM_ID, TEAM_CITY, TEAM_NAME, TEAM_ABBREVIATION, TEAM_CONFERENCE, W, L, MIN_YEAR, TEAMNAME FROM team_info WHERE TEAM_NAME = ?";
         StringBuilder playerData = new StringBuilder();
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, teamName);
@@ -56,7 +56,7 @@ public class TeamDAO {
 
 
     public void updateCityName(String teamName, String newCityName) {
-        String query = "UPDATE team_info SET TEAM_CITY = ? WHERE TEAM_CITY = ?";
+        String query = "UPDATE team_info SET TEAM_CITY = ? WHERE TEAM_NAME = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, newCityName);
             statement.setString(2, teamName);
