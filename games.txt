@@ -1,0 +1,5 @@
+78923198191, Chicago Bulls, 123, Oklahoma City Thunder, 111
+78923198144, Los Angeles Lakers, as, Miami Heat, ds
+78923198155, Golden State Warriors, 140, Boston Celtics, 135
+78923198166, San Diego Lakers, 112, Tossa de Mar Hoolingans, 118
+78923198177 Toronto Raptors 101 Dallas Mavericks 99

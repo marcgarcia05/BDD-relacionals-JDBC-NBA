@@ -17,12 +17,12 @@ public class TeamView {
 
 
     public String getTeamName() {
-        System.out.print("Introduce el nombre del equipo: ");
+        System.out.print("Introdueix el nom del equip: ");
         return scanner.nextLine();
     }
 
     public String getNewCityName() {
-        System.out.print("Introduce el nuevo nombre de la ciudad: ");
+        System.out.print("Introdueix el nou nom de la ciutat: ");
         return scanner.nextLine();
     }
 

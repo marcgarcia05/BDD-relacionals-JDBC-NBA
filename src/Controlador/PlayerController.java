@@ -70,7 +70,7 @@ public class PlayerController {
             }
             String traspasar = scanner.nextLine();
             if (Objects.equals(traspasar, "si")) {
-                transferPlayer();
+                transferPlayerIfExists(playerName);
                 return;
             } else if (Objects.equals(traspasar, "no")) {
                 System.out.println("Jugador no traspasat.");
@@ -98,6 +98,26 @@ public class PlayerController {
         MainController.start();
     }
 
+    // Mirar si se puede hacer con el que ya tenemos. transferPlayer
+    public void transferPlayerIfExists(String playerName) {
+        boolean playerExists = playerDAO.checkPlayerExists(playerName);
+        if (!playerExists) {
+            System.out.println("Aquest jugador no existeix!");
+            return;
+        }
+        String newTeam = TeamView.getNewTeam();
+        Player player = playerDAO.getPlayer(playerName);
+        boolean teamExists = TeamDAO.checkTeamExists(newTeam);
+        if (!teamExists) {
+            System.out.println("Aquest equip no existeix!");
+            MainController.start();
+        }
+        Team team = TeamDAO.getTeamInfo(newTeam);
+        playerDAO.changePlayerTeam(player, team);
+        playerDAO.changePlayerStatsTeam(player, team);
+        System.out.println("Equip actualitzat correctament!");
+        MainController.start();
+    }
 
     public void updatePlayerStats() {
         String playerName = playerView.getPlayerName();
