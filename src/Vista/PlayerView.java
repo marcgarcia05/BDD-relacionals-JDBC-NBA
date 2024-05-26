@@ -14,27 +14,27 @@ public class PlayerView {
     }
 
     public String getTeamName() {
-        System.out.print("Introduce el nombre del equipo: ");
+        System.out.print("Introdueix el nom del equip: ");
         return scanner.nextLine();
     }
 
     public String getPlayerName() {
-        System.out.print("Introduce el nombre completo del jugador: ");
+        System.out.print("Introdueix el nom complert del jugador: ");
         return scanner.nextLine();
     }
 
     public void showPlayersFromTeam(List<Player> players) {
-        System.out.println("Id        |      Nom            |     Team");
+        System.out.println("Id        |      Nom            |     Equip");
         for (Player player : players) {
             System.out.println(player.getId() + "   |   " + player.getName() + "    |   " + player.getTeamName());
         }
     }
 
     public void showPlayerStats(PlayerStats player) {
-        System.out.println("PLAYER STATS");
+        System.out.println("ESTADISTIQUES");
         System.out.println("Player ID: " + player.getId() +
-                        "\nName: " + player.getName() +
-                        "\nGames Played: " + player.getGamesPlayed() +
+                        "\nNom: " + player.getName() +
+                        "\nGP: " + player.getGamesPlayed() +
                         "\nMIN: " + player.getMin() +
                         "\nFGM: " + player.getFgm() +
                         "\nFGA: " + player.getFga() +
@@ -68,8 +68,8 @@ public class PlayerView {
 
 
     public String getStatName() {
+        System.out.println("Variables disponibles: GP, MIN, FGM, FGA, FG_PCT, FG3M, FG3A, FG3_PCT, FTM, FTA, FT_PCT, OREB, DREB, REB, AST, STL, BLK, TOV, PTS, EFF");
         System.out.print("Introdueix el nom de la variable a modificar: ");
-        System.out.print("Variables disponibles: GP, MIN, FGM, FGA, FG_PCT, FG3M, FG3A, FG3_PCT, FTM, FTA, FT_PCT, OREB, DREB, REB, AST, STL, BLK, TOV, PTS, EFF");
         return scanner.nextLine();
     }
 
@@ -77,13 +77,6 @@ public class PlayerView {
         System.out.print("Introdueix un nou número a la estadistica: ");
         return scanner.nextInt();
     }
-
-    public boolean wantToUpdateMoreStats() {
-        System.out.print("¿Vols modificar una altre estadistica? (si/no): ");
-        String response = scanner.next().toLowerCase();
-        return response.equals("si");
-    }
-
 
 }
 

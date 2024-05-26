@@ -1,7 +1,6 @@
 package Controlador;
 
 import Vista.MainView;
-import Controlador.TeamController;
 
 import java.sql.SQLException;
 
@@ -25,7 +24,7 @@ public class MainController {
             option = mainView.getOption();
             switch (option) {
                 case 0:
-                    System.out.println("Saliendo...");
+                    System.out.println("Sortint...");
                     break;
                 case 1:
                     playerController.listPlayersByTeam();
@@ -34,7 +33,7 @@ public class MainController {
                     playerController.showPlayerStats();
                     break;
                 case 3:
-                    matchController.listMatchesByTeam(); // Opció 3
+                    matchController.listMatchesByTeam();
                     break;
                 case 4:
                     playerController.addNewPlayer();
@@ -43,20 +42,36 @@ public class MainController {
                     playerController.transferPlayer();
                     break;
                 case 6:
-                    matchController.updateMatchesFromFile("games.txt");
+                    handleUpdateOption();
                     break;
                 case 7:
                     playerController.updatePlayerStats();
                     break;
                 case 8:
                     playerController.retirePlayer();
+                    break;
                 case 9:
                     teamController.changeFranchiseName();
                     break;
                 default:
-                    System.out.println("Opción no válida. Inténtalo de nuevo.");
+                    System.out.println("Opció no vàlida.");
                     break;
             }
         } while (option != 0);
+    }
+
+    private static void handleUpdateOption() {
+        int subOption = mainView.getUpdateOption();
+        switch (subOption) {
+            case 1:
+                playerController.updatePlayersFromFile("players.txt");
+                break;
+            case 2:
+                matchController.updateMatchesFromFile("games.txt");
+                break;
+            default:
+                System.out.println("Opció no vàlida.");
+                break;
+        }
     }
 }

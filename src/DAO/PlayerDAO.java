@@ -41,7 +41,7 @@ public class PlayerDAO {
         return players;
     }
 
-    public PlayerStats getPlayerStats(String playerName) {
+    public static PlayerStats getPlayerStats(String playerName) {
         String query = "SELECT PLAYER_ID, PLAYER, GP, MIN, FGM, FGA, FG_PCT, FG3M, FG3A, FG3_PCT, FTM, FTA, FT_PCT, OREB, DREB, REB, AST, STL, BLK, TOV, PTS, EFF FROM player_stats WHERE PLAYER = ?";
         PlayerStats p = null;
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -218,5 +218,89 @@ public class PlayerDAO {
         }
     }
 
+
+    public boolean updatePlayerStats(String playerName, int gp, int min, int fgm, int fga, double fgPct, int fg3m, int fg3a, double fg3Pct, int ftm, int fta, double ftPct, int oreb, int dreb, int reb, int ast, int stl, int blk, int tov, int pts, int eff) {
+        String query = "SELECT * FROM player_stats WHERE PLAYER = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, playerName);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                int existingGp = resultSet.getInt("GP");
+                int existingMin = resultSet.getInt("MIN");
+                int existingFgm = resultSet.getInt("FGM");
+                int existingFga = resultSet.getInt("FGA");
+                double existingFgPct = resultSet.getDouble("FG_PCT");
+                int existingFg3m = resultSet.getInt("FG3M");
+                int existingFg3a = resultSet.getInt("FG3A");
+                double existingFg3Pct = resultSet.getDouble("FG3_PCT");
+                int existingFtm = resultSet.getInt("FTM");
+                int existingFta = resultSet.getInt("FTA");
+                double existingFtPct = resultSet.getDouble("FT_PCT");
+                int existingOreb = resultSet.getInt("OREB");
+                int existingDreb = resultSet.getInt("DREB");
+                int existingReb = resultSet.getInt("REB");
+                int existingAst = resultSet.getInt("AST");
+                int existingStl = resultSet.getInt("STL");
+                int existingBlk = resultSet.getInt("BLK");
+                int existingTov = resultSet.getInt("TOV");
+                int existingPts = resultSet.getInt("PTS");
+                int existingEff = resultSet.getInt("EFF");
+
+                int newGp = existingGp + gp;
+                int newMin = existingMin + min;
+                int newFgm = existingFgm + fgm;
+                int newFga = existingFga + fga;
+                double newFgPct = ((existingFgm + fgm) / (double) (existingFga + fga));
+                int newFg3m = existingFg3m + fg3m;
+                int newFg3a = existingFg3a + fg3a;
+                double newFg3Pct = ((existingFg3m + fg3m) / (double) (existingFg3a + fg3a));
+                int newFtm = existingFtm + ftm;
+                int newFta = existingFta + fta;
+                double newFtPct = ((existingFtm + ftm) / (double) (existingFta + fta));
+                int newOreb = existingOreb + oreb;
+                int newDreb = existingDreb + dreb;
+                int newReb = existingReb + reb;
+                int newAst = existingAst + ast;
+                int newStl = existingStl + stl;
+                int newBlk = existingBlk + blk;
+                int newTov = existingTov + tov;
+                int newPts = existingPts + pts;
+                int newEff = existingEff + eff;
+
+                String updateQuery = "UPDATE player_stats SET GP = ?, MIN = ?, FGM = ?, FGA = ?, FG_PCT = ?, FG3M = ?, FG3A = ?, FG3_PCT = ?, FTM = ?, FTA = ?, FT_PCT = ?, OREB = ?, DREB = ?, REB = ?, AST = ?, STL = ?, BLK = ?, TOV = ?, PTS = ?, EFF = ? WHERE PLAYER = ?";
+                try (PreparedStatement updateStatement = connection.prepareStatement(updateQuery)) {
+                    updateStatement.setInt(1, newGp);
+                    updateStatement.setInt(2, newMin);
+                    updateStatement.setInt(3, newFgm);
+                    updateStatement.setInt(4, newFga);
+                    updateStatement.setDouble(5, newFgPct);
+                    updateStatement.setInt(6, newFg3m);
+                    updateStatement.setInt(7, newFg3a);
+                    updateStatement.setDouble(8, newFg3Pct);
+                    updateStatement.setInt(9, newFtm);
+                    updateStatement.setInt(10, newFta);
+                    updateStatement.setDouble(11, newFtPct);
+                    updateStatement.setInt(12, newOreb);
+                    updateStatement.setInt(13, newDreb);
+                    updateStatement.setInt(14, newReb);
+                    updateStatement.setInt(15, newAst);
+                    updateStatement.setInt(16, newStl);
+                    updateStatement.setInt(17, newBlk);
+                    updateStatement.setInt(18, newTov);
+                    updateStatement.setInt(19, newPts);
+                    updateStatement.setInt(20, newEff);
+                    updateStatement.setString(21, playerName);
+                    updateStatement.executeUpdate();
+                    return true; // Retornarà true si s'ha fet el l'UPDATE correctament
+                }
+            } else {
+                return false; // Retornarà FALSE si no ha trobat el jugador
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Retornarà FALSE si ha hagut un problema mentres es modificaven les estadístiques
+        }
+    }
 }
 
