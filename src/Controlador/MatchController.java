@@ -22,7 +22,8 @@ public class MatchController {
 
     public void listMatchesByTeam() {
         String teamName = matchView.getTeamName();
-        List<Match> matches = matchDAO.listMatchesByTeam(teamName);
+        String seasonYear = matchView.getSeasonYear();
+        List<Match> matches = matchDAO.listMatchesByTeamAndSeason(teamName, seasonYear);
         matchView.showMatches(matches);
     }
 
@@ -34,15 +35,41 @@ public class MatchController {
                 if (parts.length == 5) {
                     String gameId = parts[0];
                     String team1 = parts[1];
-                    int points1 = Integer.parseInt(parts[2]);
+                    String points1Str = parts[2];
                     String team2 = parts[3];
-                    int points2 = Integer.parseInt(parts[4]);
+                    String points2Str = parts[4];
 
-                    matchDAO.updateMatchData(gameId, team1, points1);
-                    matchDAO.updateMatchData(gameId, team2, points2);
+                    if (matchDAO.matchExists(gameId)) {
+                        System.out.println("El partit amb l'ID " + gameId + " ja existeix.");
+                        continue;
+                    }
+
+                    try {
+                        int points1 = Integer.parseInt(points1Str);
+                        int points2 = Integer.parseInt(points2Str);
+
+                        if (!matchDAO.isValidTeam(team1)) {
+                            System.out.println("El equip " + team1 + " no existeix.");
+                            continue;
+                        }
+
+                        if (!matchDAO.isValidTeam(team2)) {
+                            System.out.println("El equip " + team2 + " no existeix.");
+                            continue;
+                        }
+
+                        matchDAO.updateMatchData(gameId, team1, points1);
+                        matchDAO.updateMatchData(gameId, team2, points2);
+                        System.out.println("Partit " + gameId + " actualitzat correctament.");
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error en els punts del partit: " + gameId + ": no són valors vàlids.");
+                    }
+
+                } else {
+                    System.out.println("Format de linea incorrecte: " + line);
                 }
             }
-            System.out.println("Partits afegits correctament");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -33,6 +33,7 @@ public class PlayerController {
         this.playerView = new PlayerView();
         this.playerDAO = new PlayerDAO();
         this.mainView = mainView;
+        this.scanner = new Scanner(System.in);
     }
 
     public void listPlayersByTeam() {
@@ -59,17 +60,23 @@ public class PlayerController {
         MainController.start();
     }
 
-    public void addNewPlayer(){
+    public void addNewPlayer() {
         String playerName = playerView.getNewPlayer();
         boolean playerExists = playerDAO.checkPlayerExists(playerName);
-        if (playerExists){
+        if (playerExists) {
             System.out.print("Aquest jugador ja existeix vols traspasar-lo? (si | no): ");
+            if (scanner == null) {
+                scanner = new Scanner(System.in);
+            }
             String traspasar = scanner.nextLine();
             if (Objects.equals(traspasar, "si")) {
                 transferPlayer();
-            } else if (Objects.equals(traspasar, "No")){
+                return;
+            } else if (Objects.equals(traspasar, "no")) {
                 System.out.println("Jugador no traspasat.");
+                return;
             }
+
 
         }
         String teamName = playerView.getTeamName();
@@ -151,7 +158,7 @@ public class PlayerController {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(", ");
-                if (parts.length >= 21) { // Verificar que hay suficientes elementos
+                if (parts.length >= 21) {
                     String playerName = parts[0];
                     try {
                         int gp = Integer.parseInt(parts[1]);
