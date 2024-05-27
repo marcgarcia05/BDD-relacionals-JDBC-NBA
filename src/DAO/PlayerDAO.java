@@ -35,8 +35,6 @@ public class PlayerDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-
-
         }
         return players;
     }

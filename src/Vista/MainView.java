@@ -11,6 +11,7 @@ public class MainView {
         this.scanner = new Scanner(System.in);
     }
 
+    //Menu Principal
     public void displayMenu() {
         System.out.println("Menú:");
         System.out.println("0. Sortir");
@@ -42,5 +43,4 @@ public class MainView {
         System.out.print("Escull una opció: ");
         return scanner.nextInt();
     }
-
 }

@@ -22,14 +22,16 @@ public class MatchController {
     }
 
     public void listMatchesByTeam(){
+
         String teamName = matchView.getTeamName();
-        String seasonYear = matchView.getSeasonYear();
 
         // Verificar si l'equip existeix
         if (!matchDAO.isValidTeam(teamName)) {
             System.out.println("El equip " + teamName + " no existeix.");
             return;
         }
+
+        String seasonYear = matchView.getSeasonYear();
 
         // Verificar si l'any es vàlid
         if (!isValidSeasonYear(seasonYear)) {
@@ -42,7 +44,7 @@ public class MatchController {
     }
 
     private boolean isValidSeasonYear(String seasonYear) {
-        // Lista de años de temporada válidos
+        // LLista d'anys de temporada válidos
         String[] anysValids = {"2018-19", "2019-20", "2020-21", "2021-22", "2022-23", "2023-24"};
 
         // Verificar si l'any està en la llista

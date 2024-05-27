@@ -14,6 +14,7 @@ public class TeamController {
 
     public void changeFranchiseName() {
         String teamName = teamView.getTeamName();
+        //Comprovem que l'equip existeix
         boolean teamExists = TeamDAO.checkTeamExists(teamName);
         if (!teamExists){
             System.out.println("Aquest equip no existeix!");

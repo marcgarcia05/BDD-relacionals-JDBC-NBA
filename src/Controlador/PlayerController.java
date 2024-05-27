@@ -38,6 +38,7 @@ public class PlayerController {
 
     public void listPlayersByTeam() {
         String teamName = playerView.getTeamName();
+        //Comprovem que l'equip existeix
         boolean exists = TeamDAO.checkTeamExists(teamName);
         if (!exists){
             System.out.println("Aquest equip no existeix!");
@@ -69,6 +70,7 @@ public class PlayerController {
 
     public void addNewPlayer() {
         String playerName = playerView.getNewPlayer();
+        //Comprovem que el jugador existeix
         boolean playerExists = playerDAO.checkPlayerExists(playerName);
         if (playerExists) {
             System.out.print("Aquest jugador ja existeix vols traspasar-lo? (si | no): ");
@@ -87,16 +89,19 @@ public class PlayerController {
 
         }
         String teamName = playerView.getTeamName();
+        //Comprovem que l'equip existeix
         boolean teamExists = TeamDAO.checkTeamExists(teamName);
         if (!teamExists){
             System.out.println("Aquest equip no existeix!");
             MainController.start();
         }
         Team playerTeam = TeamDAO.getTeamInfo(teamName);
+        //Generem un nou id pel nou jugador
         Random random = new Random();
         int min = 1000000;
         int max = 9999999;
         int id = random.nextInt((max - min) + 1) + min;
+        //Guardem l'any actual per guardarlo a la BBDD
         LocalDate currentDate = LocalDate.now();
         int currentYear = currentDate.getYear();
         Player player = new Player(id,playerName,currentYear,currentYear,playerTeam.getCity(),playerTeam.getName(),playerTeam.getAbbreviation());
@@ -105,21 +110,23 @@ public class PlayerController {
         MainController.start();
     }
 
-    // Mirar si se puede hacer con el que ya tenemos. transferPlayer
+
     public void transferPlayerIfExists(String playerName) {
+        //Comprovem que l'usuari existeix
         boolean playerExists = playerDAO.checkPlayerExists(playerName);
         if (!playerExists) {
             System.out.println("Aquest jugador no existeix!");
             return;
         }
         String newTeam = TeamView.getNewTeam();
-        Player player = playerDAO.getPlayer(playerName);
+        //Comprovem que l'equip existeix
         boolean teamExists = TeamDAO.checkTeamExists(newTeam);
         if (!teamExists) {
             System.out.println("Aquest equip no existeix!");
             MainController.start();
         }
         Team team = TeamDAO.getTeamInfo(newTeam);
+        Player player = playerDAO.getPlayer(playerName);
         playerDAO.changePlayerTeam(player, team);
         playerDAO.changePlayerStatsTeam(player, team);
         System.out.println("Equip actualitzat correctament!");
@@ -128,12 +135,14 @@ public class PlayerController {
 
     public void updatePlayerStats() {
         String playerName = playerView.getPlayerName();
+        //Comprovem que l'usuari existeix
         if (!playerDAO.checkPlayerExists(playerName)) {
             System.out.println("Aquest jugador no existeix!");
             return;
         }
         PlayerStats playerStats = PlayerDAO.getPlayerStats(playerName);
         String statName = playerView.getStatName();
+        //Comprovem que el camp a modificar existeix
         if(checkStatName(statName)) {
             int newValue = playerView.getNewStatValue();
             playerDAO.updatePlayerStats(playerStats.getName(), statName, newValue);
@@ -145,6 +154,7 @@ public class PlayerController {
 
     public void transferPlayer() {
         String playerName = playerView.getPlayerName();
+        //Comprovem que l'usuari existeix
         boolean playerExists = playerDAO.checkPlayerExists(playerName);
         if (!playerExists){
             System.out.println("Aquest jugador no existeix!");
@@ -152,6 +162,7 @@ public class PlayerController {
         }
         String newTeam = TeamView.getNewTeam();
         Player player = playerDAO.getPlayer(playerName);
+        //Comprovem que l'equip existeix
         boolean teamExists = TeamDAO.checkTeamExists(newTeam);
         if (!teamExists){
             System.out.println("Aquest equip no existeix!");
@@ -166,6 +177,7 @@ public class PlayerController {
 
     public void retirePlayer() {
         String playerName = playerView.getPlayerName();
+        //Comprovem que l'usuari existeix
         boolean exists = playerDAO.checkPlayerExists(playerName);
         if (!exists){
             System.out.println("Aquest jugador no existeix!");
