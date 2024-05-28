@@ -10,49 +10,29 @@ Aquest projecte implementa un sistema de gestió de bases de dades relacionals p
 
 ## Importació de Dades a la BBDD
 
+Les dades s'importen a la base de dades a través d'endpoints que utilitzen la llibreria `nba_api` per recuperar informació actualitzada. Aquest procés es realitza en Python, creant i actualitzant taules a la base de dades amb la informació obtinguda.
+
+## Taules i Dades a la BBDD
+
+* players: Informació detallada dels jugadors com el nom, ID, equip, etc.
+* team_info: Informació dels equips com el nom, ciutat, conferència, etc.
+* team_game_logs: Detalls dels partits jugats incloent data, equips participants i resultat. Des de l'any 2018-19.
+* player_info: Estadístiques individuals de cada jugador per partit.
+* historics: Taula destinada als jugadors que es volguin retirar.
+
 ## Justificacions 📋
 
-## Elecció de la Col·lecció List
+## Apartats del codi:
 
-Ens demanen treballar amb la Collection List. Tot i que tant `Stack` com `Vector` funcionen correctament per a processos multithreading, en aquest context no és necessari. Per tant, hem optat per utilitzar `ArrayList`, ja que proporciona un accés ràpid a les dades i té una implementació més simple.
+El projecte està organitzat en diverses capes:
 
-```sh
-private ArrayList<Producte> carroCompra;
-```
-
-### Utilització de Col·lecció Map per a Quantitat de Productes
-
-He utilitzat la col·lecció `Map` per gestionar la quantitat de cada producte al carret de la compra. Això ens permet mantenir una associació entre els codis de barres dels productes i la seva respectiva quantitat. Utilitzar un `Map` ens proporciona un accés eficient per a consultes basades en el codi de barres, com ara saber quanta quantitat d'un producte determinat s'ha afegit al carro.
-
-```sh
-private Map<Integer, Integer> unitatsPerProducte;
-```
-
-### Justificació del Paràmetre de Quantitat
-
-He decidit incloure un paràmetre de quantitat en la funció `afegirProducte` per proporcionar una manera flexible de manejar la quantitat de productes afegits al carret de la compra. Això permet als usuaris especificar el nombre d'unitats de cada producte que volen afegir, oferint una experiència més personalitzada i adaptable a les necessitats dels clients.
+* Model: És responsable de gestionar les dades de l'aplicació.
+* Vista: La vista és responsable de la presentació de les dades a l'usuari. `PlayerView`, `TeamView`, `MatchView` i `MainView` contenen mètodes per a rebre entrades de l'usuari.
+* Controlador: Responsable de gestionar la lògica de l'aplicació. `PlayerController`, `TeamController` i `MatchController` gestionen les operacions sobre jugadors, equips i partits respectivament.
+* DAO (Data Access Object): Gestiona la comunicació amb la base de dades. `PlayerDAO`, `TeamDAO` i `MatchDAO` contenen mètodes per a executar consultes i actualitzacions a la base de dades.
 
 
-```sh
-private Map<Integer, Integer> unitatsPerProducte;
-```
 
-### Gestió dels Codis de Barres
-
-Per evitar que es repeteixin els codis de barres, hem implementat una comprovació en la funció `afegirProducte` per assegurar-nos que no hi hagi duplicats, tant en productes tèxtils com en altres tipus de productes.
-
-```sh
-for (Producte p : carroCompra) {
-                if (p.getCodiBarres() == codiBarres) {
-                    existeix = true;
-                }
-            }
-            // Si ja existeix el producte, mostra un missatge de error
-            if (existeix) {
-                System.out.println("Ja hi ha un producte amb el mateix codi de barres al carro.");
-```
-
----
 
 # 💥 Maneig d'Errors 🚨
 
