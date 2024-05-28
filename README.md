@@ -1,4 +1,4 @@
-# 📦 Practica BDD relacionals amb JDBC (NBA) 🛒
+# 🏀 Practica BDD relacionals amb JDBC (NBA) 🏀
 
 Pràctica 6.1 1rDAW M03 - Alberto González - Marc Garcia
 
@@ -21,6 +21,8 @@ Les dades s'importen a la base de dades a través d'endpoints que utilitzen la l
 * historics: Taula destinada als jugadors que es volguin retirar.
 
 ## Justificacions 📋
+
+
 
 ## Apartats del codi:
 
