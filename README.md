@@ -28,3 +28,12 @@ El projecte està organitzat en diverses capes:
 * Vista: La vista és responsable de la presentació de les dades a l'usuari. `PlayerView`, `TeamView`, `MatchView` i `MainView` contenen mètodes per a rebre entrades de l'usuari.
 * Controlador: Responsable de gestionar la lògica de l'aplicació. `PlayerController`, `TeamController` i `MatchController` gestionen les operacions sobre jugadors, equips i partits respectivament.
 * DAO (Data Access Object): Gestiona la comunicació amb la base de dades. `PlayerDAO`, `TeamDAO` i `MatchDAO` contenen mètodes per a executar consultes i actualitzacions a la base de dades.
+
+# Funcionament del projecte
+
+Perquè el projecte funcioni correctament haurem de fer el següent:
+  1. Importar el projecte a IntelliJ
+  2. Anem a File > Project Structure
+  3. Ens situem a Modules
+  4. I afegim l'arxiu "mysql-connector.jar"
+  5. Apliquem els canvis
