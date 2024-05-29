@@ -2,8 +2,6 @@ package Vista;
 
 import java.util.Scanner;
 
-import static java.lang.Integer.parseInt;
-
 public class MainView {
     private Scanner scanner;
 

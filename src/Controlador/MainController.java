@@ -61,6 +61,7 @@ public class MainController {
         } while (option != 0);
     }
 
+    //Menú per gestionar el case 6. case1 per actualitzar dades de jugadors, i case2 per dades de partits.
     private static void handleUpdateOption() {
         int subOption = mainView.getUpdateOption();
         switch (subOption) {
